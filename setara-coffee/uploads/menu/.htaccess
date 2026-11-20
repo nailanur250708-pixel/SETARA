@@ -1,0 +1,6 @@
+# Larang eksekusi PHP pada folder uploads/menu/ (best effort; built-in server ignores .htaccess).
+php_flag engine off
+<FilesMatch "\.(phtml|php3|php4|php5|php|phps)$">
+    RemoveHandler .php .phtml .php3 .php4 .php5 .phps
+    RemoveType application/x-httpd-php
+</FilesMatch>

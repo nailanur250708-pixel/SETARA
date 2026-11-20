@@ -1,0 +1,29 @@
+# Café Setara — keamanan dasar
+Options -Indexes
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+</IfModule>
+
+# Blokir file sensitif
+<FilesMatch "^\.(env|env\.example|htaccess|git)($|\.)">
+  Require all denied
+</FilesMatch>
+
+<FilesMatch "^(composer\.json|composer\.lock|migrasi\.php|sync-to-laragon\.ps1)$">
+  Require all denied
+</FilesMatch>
+
+# Blokir folder sensitif
+RedirectMatch 403 ^/(config|includes|views|storage|vendor)(/|$)
+
+# Header keamanan
+<IfModule mod_headers.c>
+  Header set X-Content-Type-Options "nosniff"
+  Header set X-Frame-Options "SAMEORIGIN"
+  Header set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+# Landing page customer dihapus — akses langsung ke landing page staff
+RedirectMatch 301 ^/$ staff.php
+RedirectMatch 301 ^/index\.html$ staff.php

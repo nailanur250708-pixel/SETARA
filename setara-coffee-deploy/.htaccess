@@ -1,0 +1,29 @@
+# ==========================================================================
+# Café Setara — konfigurasi Apache untuk hosting
+# ==========================================================================
+
+# Utamakan index.php
+DirectoryIndex index.php index.html
+
+# Pretty URL: /kasir  ->  /kasir.php (opsional)
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME}.php -f
+RewriteRule ^(.+)$ $1.php [L,QSA]
+
+# Lindungi folder config & includes dari akses langsung
+<IfModule mod_authz_core.c>
+  <FilesMatch "^(database|helpers|header|footer)\.php$">
+    Require all denied
+  </FilesMatch>
+</IfModule>
+
+# Matikan directory listing
+Options -Indexes
+
+# Header keamanan ringan
+<IfModule mod_headers.c>
+  Header set X-Content-Type-Options "nosniff"
+  Header set X-Frame-Options "SAMEORIGIN"
+</IfModule>
