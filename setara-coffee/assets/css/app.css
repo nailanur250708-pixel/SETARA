@@ -212,7 +212,25 @@ td.kanan,th.kanan{text-align:right}
 .paginasi a,.paginasi span{min-width:32px;height:32px;padding:0 8px;display:grid;place-items:center;border:1px solid var(--input-border);border-radius:8px;font-size:12px;color:var(--teks);background:var(--putih)}
 .paginasi .aktif{background:var(--coklat);color:var(--putih);border-color:var(--coklat)}
 /* Login / Register */
-.halaman-auth{display:grid;grid-template-columns:1fr 1fr;min-height:100vh}
+.halaman-auth{display:grid;grid-template-columns:1fr 1fr;min-height:100vh;background:url(../img/login-bg.jpeg) center/cover no-repeat}
+.halaman-auth .auth-kiri,.halaman-auth .auth-kanan{background-color:rgba(0,0,0,.06)}
+.halaman-auth .auth-kiri{position:relative;background-image:url(../img/login-bg.jpeg?v=2);background-size:cover;background-position:center;background-repeat:no-repeat;background-color:var(--coklat)}
+.halaman-auth .auth-kiri::before{content:'';position:absolute;top:0;right:0;bottom:0;left:0;background:linear-gradient(rgba(42,22,9,.45),rgba(42,22,9,.8))}
+/* Halaman depan (index.php) */
+.halaman-depan{display:grid;grid-template-columns:1fr 1fr;min-height:100vh}
+.halaman-depan .depan-kiri{background:var(--coklat);padding:56px;display:flex;flex-direction:column;color:#FBF6EE}
+.halaman-depan .depan-kiri .logo-teks strong{color:#FBF6EE}.halaman-depan .depan-kiri .logo-teks small{color:var(--emas)}
+.halaman-depan .depan-kiri .logo-mark{background:rgba(255,255,255,.13)}
+.halaman-depan .depan-judul{font-family:'Fraunces',serif;font-size:44px;line-height:1.15;color:#FBF6EE;margin:48px 0 14px;font-weight:500}
+.halaman-depan .depan-desk{color:rgba(251,246,238,.85);max-width:440px;font-size:14px}
+.halaman-depan .depan-foto{position:relative;width:100%;max-width:520px;aspect-ratio:4/3;object-fit:cover;border-radius:16px;margin-top:auto;box-shadow:0 16px 40px rgba(0,0,0,.25)}
+.halaman-depan .depan-foto::before{content:'';position:absolute;inset:0;border-radius:16px;background:linear-gradient(180deg,rgba(42,22,9,.05) 0%,rgba(42,22,9,.62) 100%)}
+.halaman-depan .depan-caption{font-size:11px;color:rgba(251,246,238,.85);margin-top:12px;letter-spacing:.04em}
+.halaman-depan .depan-kanan{background:var(--krem);display:flex;align-items:center;justify-content:center;padding:40px 24px}
+.halaman-depan .depan-form{width:100%;max-width:420px}
+.halaman-depan .depan-sub{color:var(--teks);font-size:13.5px;margin-bottom:26px}
+.halaman-depan .depan-form .eyebrow{color:var(--teks)}
+@media(max-width:720px){.halaman-depan{grid-template-columns:1fr}.halaman-depan .depan-foto{margin-top:24px}}
 .auth-kiri{background:var(--coklat);padding:56px;display:flex;flex-direction:column;color:#FBF6EE}
 .auth-kiri .logo-teks strong{color:#FBF6EE}.auth-kiri .logo-teks small{color:var(--emas)}
 .auth-kiri .logo-mark{background:rgba(255,255,255,.13)}
@@ -231,7 +249,7 @@ td.kanan,th.kanan{text-align:right}
 .cek-baris{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--teks-isi);margin:10px 0}
 .cek-baris input{width:16px;height:16px;accent-color:var(--coklat)}
 .baris-opsi{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
-.google-ikon{width:18px;height:18px}
+.google-ikon{width:18px;height:18px;vertical-align:middle}
 .tooltip-wrap{position:relative;display:block}
 .tooltip-wrap .tooltip{display:none;position:absolute;bottom:calc(100% + 6px);left:0;background:var(--coklat-tua);color:#fff;font-size:11px;padding:5px 9px;border-radius:6px;white-space:nowrap}
 .tooltip-wrap:hover .tooltip{display:block}

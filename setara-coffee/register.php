@@ -58,7 +58,6 @@ if (env('GOOGLE_CLIENT_ID') && env('GOOGLE_CLIENT_SECRET')) {
   <a class="logo" href="<?= e(base_url('login.php')) ?>"><span class="logo-mark" data-lucide="coffee"></span><span class="logo-teks"><strong>Café Setara</strong><small>RUANG KELOLA KEDAI</small></span></a>
   <h1 class="auth-judul">Racikan yang hangat.<br>Operasional yang tertata.</h1>
   <p class="auth-desk">Ruang kerja untuk menjaga setiap menu, setiap bahan, dan setiap keputusan Café Setara.</p>
-  <img class="auth-foto" src="<?= e(base_url('assets/img/login-hero.jpg')) ?>" alt="Cangkir kopi Café Setara">
   <p class="auth-caption">Café Setara / Ruang kelola kedai / 2026</p>
 </section>
 <section class="auth-kanan"><div class="auth-form">

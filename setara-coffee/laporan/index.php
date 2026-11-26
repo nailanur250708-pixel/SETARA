@@ -26,7 +26,11 @@ function laporan_tanggal_valid($s): bool
 
 $mulai = isset($_GET['mulai']) && laporan_tanggal_valid($_GET['mulai']) ? (string)$_GET['mulai'] : date('Y-m-01');
 $sampai = isset($_GET['sampai']) && laporan_tanggal_valid($_GET['sampai']) ? (string)$_GET['sampai'] : date('Y-m-d');
-if (strtotime($sampai) < strtotime($mulai)) {
+$tampilkanPesanTanggal = isset($_GET['mulai'], $_GET['sampai'])
+    && laporan_tanggal_valid($_GET['mulai'])
+    && laporan_tanggal_valid($_GET['sampai'])
+    && strtotime((string)$_GET['sampai']) < strtotime((string)$_GET['mulai']);
+if ($tampilkanPesanTanggal) {
     $sampai = $mulai;
 }
 
@@ -41,7 +45,13 @@ $filter = [
     'sampai'        => $sampai,
     'pengelompokan' => $pengelompokan,
 ];
-$urlExport = base_url('laporan/export_pdf.php?' . http_build_query($filter));
+$pdfFilter = [
+    'jenis'          => $tab,
+    'tanggal_mulai'  => $mulai,
+    'tanggal_akhir'  => $sampai,
+    'pengelompokan'  => $pengelompokan,
+];
+$urlExport = base_url('laporan/pdf.php?' . http_build_query($pdfFilter));
 
 function laporan_url_tab(string $tabTarget, array $filter): string
 {
@@ -200,13 +210,16 @@ layout_header('Laporan operasional', 'Tinjau pendapatan, kondisi bahan, dan arus
   </div>
   <div style="display:flex;gap:8px;flex-wrap:wrap">
     <a class="btn btn-primary" href="<?= e($urlExport) ?>" target="_blank" rel="noopener"><i data-lucide="file-text"></i> Lihat PDF</a>
-    <a class="btn btn-secondary" href="<?= e($urlExport . '&download=1') ?>"><i data-lucide="download"></i> ⬇ Unduh PDF</a>
+    <a class="btn btn-secondary" href="<?= e($urlExport . '&mode=download') ?>"><i data-lucide="download"></i> Unduh PDF</a>
   </div>
 </div>
 
 <!-- ============================================================ FILTER -->
 <form class="kartu" method="get" action="<?= e(base_url('laporan/index.php')) ?>" style="margin-bottom:20px">
   <input type="hidden" name="tab" value="<?= e($tab) ?>">
+  <?php if ($tampilkanPesanTanggal): ?>
+    <p class="flash flash-warning" style="margin:0 0 14px"><?= e('Tanggal akhir tidak boleh lebih awal dari Tanggal mulai.') ?></p>
+  <?php endif; ?>
   <div class="filter-bar" style="margin-bottom:0">
     <div style="min-width:180px">
       <label for="mulai">Tanggal mulai</label>
@@ -228,10 +241,24 @@ layout_header('Laporan operasional', 'Tinjau pendapatan, kondisi bahan, dan arus
       <?php endif; ?>
     </div>
     <div style="align-self:flex-end">
-      <button class="btn btn-primary" type="submit"><i data-lucide="chevron-down"></i> ▼ Tampilkan</button>
+      <button class="btn btn-primary" type="submit"><i data-lucide="funnel"></i> Terapkan filter</button>
     </div>
   </div>
 </form>
+
+<script>
+  (function () {
+    var form = document.querySelector('form[action$="laporan/index.php"]');
+    if (!form) { return; }
+    form.addEventListener('submit', function () {
+      var btn = form.querySelector('button[type="submit"]');
+      if (!btn) { return; }
+      btn.disabled = true;
+      btn.querySelectorAll('i[data-lucide]').forEach(function (el) { el.remove(); });
+      btn.textContent = 'Memuat...';
+    });
+  })();
+</script>
 
 <?php if ($tab === 'pendapatan'): ?>
   <!-- =================================================== KPI PENDAPATAN -->
@@ -267,6 +294,7 @@ layout_header('Laporan operasional', 'Tinjau pendapatan, kondisi bahan, dan arus
     <div class="kartu-head">
       <div>
         <h2>Rincian pendapatan <?= e(ucfirst($pengelompokan)) ?></h2>
+        <p class="muted"><?= e('Menampilkan ' . date('j M Y', strtotime($mulai)) . ' – ' . date('j M Y', strtotime($sampai)) . ', ' . ucfirst($pengelompokan)) ?></p>
         <p class="muted"><?= e($rentangTeks) ?></p>
       </div>
       <a class="btn btn-secondary btn-sm" href="<?= e($urlExport) ?>">Cetak ringkasan →</a>

@@ -150,7 +150,6 @@ function toggleMata(){
   </a>
   <h1 class="auth-judul">Racikan yang hangat.<br>Operasional yang tertata.</h1>
   <p class="auth-desk">Ruang kerja untuk menjaga setiap menu, setiap bahan, dan setiap keputusan Café Setara.</p>
-  <img class="auth-foto" src="<?= e(base_url('assets/img/login-hero.jpg')) ?>" alt="Cangkir kopi Café Setara">
   <p class="auth-caption">Café Setara / Ruang kelola kedai / 2026</p>
 </section>
 <section class="auth-kanan">
@@ -179,7 +178,6 @@ function toggleMata(){
       <div class="form-group"><label for="password">Password</label>
         <div class="input-ikon"><input id="password" name="password" type="password" required autocomplete="current-password" placeholder="••••••••"><button class="ikon-kanan" type="button" onclick="toggleMata()" data-lucide="eye" aria-label="Tampilkan password"></button></div>
       </div>
-      <label class="cek-baris"><input id="showPass" type="checkbox" onchange="togglePassword()"> Tampilkan password</label>
       <div class="baris-opsi">
         <label class="cek-baris"><input type="checkbox" name="ingat" value="1"> Ingat perangkat ini</label>
         <a href="#" onclick="document.getElementById('modalLupa').classList.add('tampil');return false;">Lupa password?</a>
